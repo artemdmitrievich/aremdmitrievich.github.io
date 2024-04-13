@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="../deps/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../deps/css/my_css.css" rel="stylesheet">
+    <link href="../deps/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="../deps/favicon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="../deps/favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="../deps/favicon/site.webmanifest" rel="manifest">
+    <title>Регистрация</title>
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Home</a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown ">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"
+                           href="#" role="button">
+                            Информация
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item  text-white" href="#">Доставка и оплата</a></li>
+                            <li><a class="dropdown-item  text-white" href="#">Контактная информация</a></li>
+                            <li><a class="dropdown-item  text-white" href="#">Про нас</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-white" href="../carts/cart.html">Корзина</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-white" href="../users/login.html">Войти</a>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"
+                           href="#" role="button">
+                            Мой профиль
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item  text-white" href="../carts/cart.html">Корзина</a></li>
+                            <li><a class="dropdown-item  text-white" href="../users/profile.html">Личный кабинет</a>
+                            </li>
+                            <li><a class="dropdown-item  text-white" href="#">Админ панель</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item  text-white" href="#">Выйти</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input aria-label="Search" class="form-control me-2" placeholder="Search" type="search">
+                    <button class="btn btn-outline-success text-white" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<section>
+    <div class="container">
+        <!-- Каталог и корзина с фиксированным расположением на странице -->
+        <div class="row mt-1 position-fixed z-3">
+            <!-- Каталог -->
+            <div class="dropdown mb-2">
+                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle btn-dark" data-bs-toggle="dropdown"
+                        type="button">
+                    Каталог
+                    <img alt="Catalog Icon" class="mx-1" height="16" src="../deps/icons/grid-fill.svg"
+                         width="16">
+                </button>
+                <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Все товары</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Игровые компьютеры</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Ноутбуки</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Гарнитура для пк</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Компоненты для пк</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Vr-устройства</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Прочее</a></li>
+                </ul>
+            </div>
+            <!-- Значек корзины, вызывает модальное окно -->
+            <div>
+                <button aria-expanded="false" class="btn btn-dark btn-secondary d-flex" id="modalButton" type="button">
+                    <img alt="Catalog Icon" class="mx-1" height="24" src="../deps/icons/basket2-fill.svg"
+                         width="24">
+                    <span>0</span>
+                </button>
+            </div>
+            <!-- Разметка модального окна корзины -->
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                 tabindex="-1">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                    type="button"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 class="text-center mb-4">Корзина</h3>
+                            <div class="container" id="cart-items-container">
+                                <!-- Разметка корзины -->
+                                <div class="card mb-3 text-bg-light shadow-lg">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Товар</h5>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="row text-center">
+                                                <div class="col p-0">
+                                                    <div class="input-group">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-dark btn-sm decrement"
+                                                                        data-cart-change-url=""
+                                                                        data-cart-id=""
+                                                                        type="button">-</button>
+                                                            </span>
+                                                        <input class="form-control number" readonly type="text"
+                                                               value="1">
+                                                        <span class="input-group-btn">
+                                                                <button class="btn btn-dark btn-sm increment"
+                                                                        data-cart-change-url=""
+                                                                        data-cart-id=""
+                                                                        type="button">+</button>
+                                                            </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-0">
+                                                    <p>x 100.00 = </p>
+                                                </div>
+                                                <div class="col p-0"><strong>100.00 $</strong></div>
+                                                <div class="col p-0">
+                                                    <a class="remove-from-cart" data-cart-id="" href="#">
+                                                        <img alt="Catalog Icon" class="mx-1"
+                                                             height="16" src="../deps/icons/trash3-fill.svg" width="16">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card mb-3 shadow-lg">
+                                    <div class="card-footer">
+                                        <p class="float-left">Итого <strong>1</strong> товар(а) на сумму</p>
+                                        <h4 class="float-left"><strong>100.00 $</strong></h4>
+                                    </div>
+                                </div>
+                                <!-- Закончилась разметка корзины -->
+                            </div>
+                            <a class="btn btn-dark" href="../orders/create_order.html">
+                                Оформить заказ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Закончилась разметка модального окна -->
+        </div>
+    </div>
+    <!-- Контент -->
+    <div class="container">
+        <div class="row mt-1">
+            <div class="col-lg-2">
+                <!-- Пустой блок на усмотрение -->
+            </div>
+            <div class="col-lg-10">
+                <!-- Контент на странице -->
+                <div class="row">
+                    <div class="container mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-9 bg-white p-4 mb-5 mx-2 rounded custom-shadow">
+                                <h2 class="text-center mb-4">Регистрация</h2>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="firstName">Имя*</label>
+                                            <input class="form-control" id="firstName" placeholder="Введите ваше имя"
+                                                   required type="text">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="lastName">Фамилия*</label>
+                                            <input class="form-control" id="lastName" placeholder="Введите вашу фамилию"
+                                                   required type="text">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="username">Имя пользователя*</label>
+                                            <input class="form-control" id="username" placeholder="Введите ваше имя пользователя"
+                                                   required type="text">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="email">Email*</label>
+                                            <input class="form-control" id="email" placeholder="Введите ваш email"
+                                                   required type="email">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="password1">Пароль*</label>
+                                            <input class="form-control" id="password1" placeholder="Введите пароль"
+                                                   required type="password">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="password2">Подтверждение пароля*</label>
+                                            <input class="form-control" id="password2" placeholder="Подтвердите пароль"
+                                                   required type="password">
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-dark btn-block"
+                                            type="submit">Зарегистрироваться
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="../deps/js/jquery/jquery-3.7.0.min.js"></script>
+<script src="../deps/js/jquery-events.js"></script>
+<script src="../deps/js/jquery-ajax.js"></script>
+<script src="../deps/js/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

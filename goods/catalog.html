@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="../deps/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="../deps/css/my_css.css" rel="stylesheet">
+    <link href="../deps/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="../deps/favicon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="../deps/favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="../deps/favicon/site.webmanifest" rel="manifest">
+    <title>Каталог</title>
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">Home</a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown ">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"
+                           href="#" role="button">
+                            Информация
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item  text-white" href="#">Доставка и оплата</a></li>
+                            <li><a class="dropdown-item  text-white" href="#">Контактная информация</a></li>
+                            <li><a class="dropdown-item  text-white" href="#">Про нас</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-white" href="../carts/cart.html">Корзина</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-white" href="../users/login.html">Войти</a>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <a aria-expanded="false" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"
+                           href="#" role="button">
+                            Мой профиль
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item  text-white" href="../carts/cart.html">Корзина</a></li>
+                            <li><a class="dropdown-item  text-white" href="../users/profile.html">Личный кабинет</a>
+                            </li>
+                            <li><a class="dropdown-item  text-white" href="#">Админ панель</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item  text-white" href="#">Выйти</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input aria-label="Search" class="form-control me-2" placeholder="Search" type="search">
+                    <button class="btn btn-outline-success text-white" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<section>
+    <div class="container">
+        <!-- Каталог и корзина с фиксированным расположением на странице -->
+        <div class="row mt-1 position-fixed z-3">
+            <!-- Каталог -->
+            <div class="dropdown mb-2">
+                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle btn-dark"
+                        data-bs-toggle="dropdown"
+                        type="button">
+                    Каталог
+                    <img alt="Catalog Icon" class="mx-1" height="16" src="../deps/icons/grid-fill.svg"
+                         width="16">
+                </button>
+                <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Все товары</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Игровые компьютеры</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Ноутбуки</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Гарнитура для пк</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Компоненты для пк</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Vr-устройства</a></li>
+                    <li><a class="dropdown-item text-white" href="../goods/catalog.html">Прочее</a></li>
+                </ul>
+            </div>
+            <!-- Значек корзины, вызывает модальное окно -->
+            <div>
+                <button aria-expanded="false" class="btn btn-dark btn-secondary d-flex" id="modalButton" type="button">
+                    <img alt="Catalog Icon" class="mx-1" height="24" src="../deps/icons/basket2-fill.svg"
+                         width="24">
+                    <span>0</span>
+                </button>
+            </div>
+            <!-- Разметка модального окна корзины -->
+            <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                 tabindex="-1">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                    type="button"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 class="text-center mb-4">Корзина</h3>
+                            <div class="container" id="cart-items-container">
+                                <!-- Разметка корзины -->
+                                <div class="card mb-3 text-bg-light shadow-lg">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Товар</h5>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="row text-center">
+                                                <div class="col p-0">
+                                                    <div class="input-group">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-dark btn-sm decrement"
+                                                                        data-cart-change-url=""
+                                                                        data-cart-id=""
+                                                                        type="button">-</button>
+                                                            </span>
+                                                        <input class="form-control number" readonly type="text"
+                                                               value="1">
+                                                        <span class="input-group-btn">
+                                                                <button class="btn btn-dark btn-sm increment"
+                                                                        data-cart-change-url=""
+                                                                        data-cart-id=""
+                                                                        type="button">+</button>
+                                                            </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-0">
+                                                    <p>x 100.00 = </p>
+                                                </div>
+                                                <div class="col p-0"><strong>100.00 $</strong></div>
+                                                <div class="col p-0">
+                                                    <a class="remove-from-cart" data-cart-id="" href="#">
+                                                        <img alt="Catalog Icon" class="mx-1"
+                                                             height="16" src="../deps/icons/trash3-fill.svg" width="16">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card mb-3 shadow-lg">
+                                    <div class="card-footer">
+                                        <p class="float-left">Итого <strong>1</strong> товар(а) на сумму</p>
+                                        <h4 class="float-left"><strong>100.00 $</strong></h4>
+                                    </div>
+                                </div>
+                                <!-- Закончилась разметка корзины -->
+                            </div>
+                            <a class="btn btn-dark" href="../orders/create_order.html">
+                                Оформить заказ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Закончилась разметка модального окна -->
+        </div>
+    </div>
+    <!-- Контент -->
+    <div class="container">
+        <div class="row mt-1">
+            <div class="col-lg-2">
+                <!-- Пустой блок на усмотрение -->
+            </div>
+            <div class="col-lg-10">
+                <!-- Контент на странице -->
+                <div class="row">
+                    <!-- Форма фильтров -->
+                    <div class="dropdown mb-2">
+                        <button aria-expanded="false" class="btn btn-secondary dropdown-toggle btn-dark"
+                                data-bs-toggle="dropdown"
+                                type="button">
+                            Фильтры
+                        </button>
+
+                        <form action="" class="dropdown-menu bg-dark" data-bs-theme="dark" method="get">
+                            <div class="form-check text-white mx-3">
+                                <input class="form-check-input" id="flexCheckDefault" name="on_sale" type="checkbox"
+                                       value="on">
+                                <input name="q" type="hidden" value="request.GET.q">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Товары по акции
+                                </label>
+                            </div>
+                            <p class="text-white mx-3 mt-3">Сортировать:</p>
+                            <div class="form-check text-white mx-3">
+                                <input checked class="form-check-input" id="flexRadioDefault1" name="order_by"
+                                       type="radio" value="default">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    По умолчанию
+                                </label>
+                            </div>
+                            <div class="form-check text-white mx-3">
+                                <input class="form-check-input" id="flexRadioDefault2" name="order_by" type="radio"
+                                       value="price">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    От дешевых к дорогим
+                                </label>
+                            </div>
+                            <div class="form-check text-white mx-3">
+                                <input class="form-check-input" id="flexRadioDefault3" name="order_by" type="radio"
+                                       value="-price">
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    От дорогих к дешевым
+                                </label>
+                            </div>
+                            <button class="btn btn-primary mx-3 mt-3" type="submit">Применить</button>
+                        </form>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/acc.png">
+                            <div class="card-body">
+                                <a href="../goods/product.html">
+                                    <p class="card-title">Клавиатура</p>
+                                </a>
+                                <p class="card-text text-truncate">Тактильно приятная клавиатура с быстрым откликом.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn add-to-cart" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/controller.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Контроллер</p>
+                                </a>
+                                <p class="card-text text-truncate">Контроллер для игр на консолях и пк.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn add-to-cart" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/cpu.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Cpu-процессор</p>
+                                </a>
+                                <p class="card-text text-truncate">Мощнейший процессор для сложных вычислений.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/gaming%20pc.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Игровой компьютер</p>
+                                </a>
+                                <p class="card-text text-truncate">Современнейший геймерский пк для тяжелых игр.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/gpu.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Видеокарта rtx-4090-super</p>
+                                </a>
+                                <p class="card-text text-truncate">Новейшая rtx-4090-super - лучшее вложение в пк для
+                                    заядлых геймеров на ближайшие 10 лет.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/laptop.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Ноутбук aser</p>
+                                </a>
+                                <p class="card-text text-truncate">Ноутбук - незаменимая вещь для любого программиста,
+                                    скорее приобретай лучший из них.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/vr.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Vr-гарнитура</p>
+                                </a>
+                                <p class="card-text text-truncate">Окунись в мир новых технологий и испытай невероятные
+                                    ощущения с нашим Vr-комплектом.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/other.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Вентилятор для пк</p>
+                                </a>
+                                <p class="card-text text-truncate">Охлаждение - неотъемлемая часть любого компьютера,
+                                    необходимая для долгой работы вашего утройства.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/acc.png">
+                            <div class="card-body">
+                                <a href="../goods/product.html">
+                                    <p class="card-title">Клавиатура</p>
+                                </a>
+                                <p class="card-text text-truncate">Тактильно приятная клавиатура с быстрым откликом.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn add-to-cart" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/controller.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Контроллер</p>
+                                </a>
+                                <p class="card-text text-truncate">Контроллер для игр на консолях и пк.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn add-to-cart" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/cpu.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Cpu-процессор</p>
+                                </a>
+                                <p class="card-text text-truncate">Мощнейший процессор для сложных вычислений.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Карта товара -->
+                    <div class="col-lg-4 col-md-6 p-4">
+                        <div class="card border-primary rounded custom-shadow">
+                            <img alt="..." class="card-img-top" src="../deps/images/goods/gaming%20pc.png">
+                            <div class="card-body">
+                                <a href="#">
+                                    <p class="card-title">Игровой компьютер</p>
+                                </a>
+                                <p class="card-text text-truncate">Современнейший геймерский пк для тяжелых игр.</p>
+                                <p class="product_id">id: 02265</p>
+                                <div class="d-flex justify-content-between">
+                                    <p><s>100</s> $</p>
+                                    <p><strong>90.00 $</strong></p>
+                                    <span class="badge bg-warning text-dark">Скидка 10.00 %</span>
+                                    <!-- <p><strong>100.00 $</strong></p> -->
+                                    <a class="btn" href="#">
+                                        <img alt="Catalog Icon" class="mx-1" height="32"
+                                             src="../deps/icons/cart-plus.svg" width="32">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Пагинация -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center my-4">
+                        <div class="custom-shadow d-flex">
+                            <li class="page-item disabled">
+                                <a class="page-link">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </div>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="py-4 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">My electronics &copy; by Andrianov Artem 2024</p>
+    </div>
+</footer>
+<script src="../deps/js/jquery/jquery-3.7.0.min.js"></script>
+<script src="../deps/js/jquery-events.js"></script>
+<script src="../deps/js/jquery-ajax.js"></script>
+<script src="../deps/js/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
